@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\BenevoleController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Foundation\Application;
@@ -44,7 +46,26 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('candidature', BenevoleController::class);
 
-
 });
+
+Route::get('service', [ServiceController::class, 'indexService'])->name('indexService');
+Route::get('conseil_anti_gaspi', [ServiceController::class, 'conseilAntiGaspi'])->name('conseilAntiGaspi');
+Route::get('article_anti_gaspi/{id}', [ServiceController::class, 'articleAntiGaspi'])->name('articleAntiGaspi');
+Route::get('conseil_economie_energie', [ServiceController::class, 'conseilEconomieEnergie'])->name('conseilconomieEnergie');
+Route::get('article_economie_energie/{id}', [ServiceController::class, 'articleconomieEnergie'])->name('articleconomieEnergie');
+Route::get('tuto_cuisine', [ServiceController::class, 'RecetteCuisine'])->name('RecetteCuisine');
+Route::get('article_cuisine/{id}', [ServiceController::class, 'articleRecetteCuisine'])->name('articleRecetteCuisine');
+Route::get('serviceChoice', [ServiceController::class, 'indexChoice'])->name('indexChoice');
+Route::post('serviceResume', [ServiceController::class, 'serviceResume'])->name('serviceResume');
+
+Route::get('test', [TestController::class, 'test'])->name('test');
+Route::get('test2', [TestController::class, 'test2'])->name('test2');
+Route::get('test3', [TestController::class, 'test3'])->name('test3');
+Route::get('test4', [TestController::class, 'test4'])->name('test4');
+Route::get('test5', [TestController::class, 'test5'])->name('test5');
+Route::get('test6', [TestController::class, 'test6'])->name('test6');
+Route::get('liste_organisation_test', [TestController::class, 'liste_organisation_test']);
+Route::get('liste_organisation_member_test', [TestController::class, 'liste_organisation_member_test']);
+
 
 require __DIR__.'/auth.php';
