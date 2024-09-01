@@ -36,12 +36,11 @@ export default function Choice({ auth }) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Données à soumettre:', data); 
-        post(route('serviceResume', data)); 
+        post(route('serviceResume', data));
     };
 
     return (
-        <div>
+        <div className="bg-gray-50 text-black/50 dark:bg-gray-900/80 dark:text-white/100 min-h-screen">
             <Navbar user={auth.user} />
 
             <form className="flex flex-col items-center mt-20 space-y-6" onSubmit={handleSubmit}>
@@ -58,7 +57,7 @@ export default function Choice({ auth }) {
                     </Dropdown.Content>
                 </Dropdown>
 
-                <div className="mt-4 text-lg text-gray-700">
+                <div className="mt-4 text-lg">
                         <div>
                             Ville sélectionnée : <span className="font-bold">{data.ville}</span>
                         </div>
@@ -77,13 +76,13 @@ export default function Choice({ auth }) {
                     </Dropdown.Content>
                 </Dropdown>
 
-                <div className="mt-4 text-lg text-gray-700">
+                <div className="mt-4 text-lg">
                         <div>
                             Service sélectionné : <span className="font-bold">{data.service}</span>
                         </div>
                 </div>
 
-                <InputLabel htmlFor="address" value="address" className='text-2xl' />
+                <InputLabel htmlFor="address" value="address" className='text-2xl text-white' />
 
                 <TextInput
                         id="address"
@@ -94,6 +93,17 @@ export default function Choice({ auth }) {
                         isFocused={true}
                         onChange={(e) => setData('address', e.target.value)}
                 />
+
+                <InputLabel htmlFor="date" value="date" className='text-2xl text-white' />
+                    <input
+                        type="date"
+                        id={`date-${index}`}
+                        name="date"
+                        min={getTomorrowDate()}
+                        className="mt-1 block w-full p-2 border border-gray-300 rounded-md bg-gray-100 text-gray-900 focus:ring-blue-500 focus:border-blue-500"
+                        required
+                        onChange={(e) => handleDateChange(veh.id, e.target.value)}
+                    />
 
                 <button type="submit" className="px-4 py-2 mt-6 text-white bg-green-600 rounded-md">
                     Valider

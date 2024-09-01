@@ -5,7 +5,7 @@ export default function ConseilArticle({ auth, article }) {
     console.log(article);
 
     return (
-        <div>
+        <div className="bg-gray-50 text-black/50 dark:bg-gray-900/80 dark/100 min-h-screen">
             <Navbar user={auth.user} />
 
             <style jsx>{`
@@ -28,7 +28,7 @@ export default function ConseilArticle({ auth, article }) {
                 <div className="bg-white shadow-md rounded-lg border border-gray-300 p-6 mb-6">
                     <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
                     <p className="text-gray-500 mb-4">
-                        Publié le : {new Date(article.date_publication).toLocaleDateString('fr-FR')}
+                        Publié le : {(article.date_publication)}
                     </p>
                     <div
                         className="article-content"

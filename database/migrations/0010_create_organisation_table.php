@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string('type');     //gouvernement, association, commerce, 
             $table->string('name');
+            //$table->string('api_key', 80)->unique()->default(function () {return bin2hex(random_bytes(40));});
         });
     }
 

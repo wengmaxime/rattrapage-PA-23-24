@@ -3,8 +3,10 @@ import Navbar from '@/Components/Navbar';
 
 import Dropdown from '@/Components/Dropdown';
 import SecondaryButton from '@/Components/SecondaryButton'; 
+import { Link } from 'react-router-dom';
 
 export default function indexService({ auth }) {
+    console.log(auth.user);
     const handleButton = (link) => {
 
         href=(route(link)); 
@@ -18,12 +20,14 @@ export default function indexService({ auth }) {
                     description: 'Chaque Samedi trouver notre liste de conseil pour réduire le gaspillage.',
                     buttonText: 'Voir Conseil',
                     buttonLink: '/conseil_anti_gaspi',
+                    categorie: 'gaspi'
                 },
                 {
                     title: 'Conseils en Économie d\'Énergie',
                     description: 'Chaque Samedi trouver des conseils pour réduire votre consommation d\'énergie à la maison et réduire votre facture d\'élécrticité.',
                     buttonText: 'Voir Conseil',
                     buttonLink: '/conseil_economie_energie',
+                    categorie: 'energie'
                 },
             ],
         },
@@ -31,8 +35,8 @@ export default function indexService({ auth }) {
             category: 'Cours de Cuisine',
             items: [
                 {
-                    title: 'Cours de Cuisine Italienne',
-                    description: 'Envie de devenir un cordon bleu? d\'élargir votre horizon culinaire? Regardez nos divers recettes',
+                    title: 'Cours de Cuisine',
+                    description: 'Envie de devenir un cordon bleu? d\'élargir votre horizon culinaire? Découvrez nos divers recettes',
                     buttonText: 'Voir recette',
                     buttonLink: '/tuto_cuisine',
                 }
@@ -45,7 +49,7 @@ export default function indexService({ auth }) {
                     title: 'Location de Voitures',
                     description: 'Louez une voiture à prix abordable et réduisez votre empreinte carbone.',
                     buttonText: 'Louer',
-                    buttonLink: '#',
+                    buttonLink: '/listeVehicule',
                     drowpdown: true
                 },
             ],
@@ -81,9 +85,19 @@ export default function indexService({ auth }) {
         },
     ];
 
+    const handleSelectionCity = (city, link) =>{
+        console.log(city)
+        console.log(link)
+        if (link && city) {
+            window.location.href = link + '/' + city;
+        } else {
+            console.error("Invalid link or city");
+        }    }
+
     return (
-        <div>
+        <div className="bg-gray-50 text-black/50 dark:bg-gray-900/80 dark:text-white/100 min-h-screen flex flex-col">
             <Navbar user={auth.user} />
+            
 
             <div className="flex flex-col gap-8 p-8">
                 {services.map((serviceCategory, index) => (
@@ -103,21 +117,22 @@ export default function indexService({ auth }) {
                                                 </button>
                                             </Dropdown.Trigger>
                                             <Dropdown.Content>
-                                                <Dropdown.Link onClick={() => handleSelectionCity('Paris')}>Paris</Dropdown.Link>
-                                                <Dropdown.Link onClick={() => handleSelectionCity('Limoges')}>Limoges</Dropdown.Link>
-                                                <Dropdown.Link onClick={() => handleSelectionCity('Nantes')}>Nantes</Dropdown.Link>
+                                                <Dropdown.Link onClick={() => handleSelectionCity('Paris',service.buttonLink)}>Paris</Dropdown.Link>
+                                                <Dropdown.Link onClick={() => handleSelectionCity('Limoges',service.buttonLink)}>Limoges</Dropdown.Link>
+                                                <Dropdown.Link onClick={() => handleSelectionCity('Nantes',service.buttonLink)}>Nantes</Dropdown.Link>
                                             </Dropdown.Content>
                                         </Dropdown>
                                         </form>
-                                    ):(
+                                    ):
+                                    (
                                         <SecondaryButton
                                             className="mt-2"
                                             onClick={() => window.location.href = service.buttonLink} // edit ?
                                         >
                                             {service.buttonText}
                                         </SecondaryButton>
+                                        
                                     )}
-                                    
                                 </div>
                             ))}
                         </div>

@@ -29,11 +29,13 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        $organisation = $request->user() ? $request->user()->organisation_role()->first() ?->organisation : null;
+        //dd($organisation);
         return [
             ...parent::share($request),
             'auth' => [
                 'user' => $request->user(),
             ],
         ];
-    }
+    } //user
 }
